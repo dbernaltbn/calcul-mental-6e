@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Càlcul Mental · Situacions Contextualitzades · 6è Primària</title>
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --accent: #f59e0b;
+      --success: #16a34a;
+      --error: #dc2626;
+      --bg: #f0fdfa;
+      --card: #ffffff;
+      --text: #134e4a;
+      --muted: #5eead4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 50%, #f0f9ff 100%);
+      min-height: 100vh;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 1.25rem;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 1.5rem 0 1rem;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      color: var(--primary-dark);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    header .subtitle {
+      color: #0f766e;
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+      opacity: 0.9;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      margin-top: 0.6rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border-radius: 1.25rem;
+      box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.12), 0 4px 10px -3px rgba(0,0,0,0.05);
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid #99f6e4;
+    }
+
+    /* Start screen */
+    #start-screen .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #99f6e4;
+      border-radius: 0.75rem;
+      font-size: 1.05rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #f0fdfa;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+    }
+
+    .mode-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .mode-btn {
+      border: 2px solid #99f6e4;
+      background: #f0fdfa;
+      border-radius: 1rem;
+      padding: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .mode-btn.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+    }
+
+    .mode-btn strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .mode-btn span {
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Quiz UI */
+    .progress-bar {
+      height: 10px;
+      background: #ccfbf1;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #14b8a6);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #0f766e;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    .question-number {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+      color: #134e4a;
+    }
+
+    .answer-area {
+      margin-bottom: 1.25rem;
+    }
+
+    .answer-area input {
+      font-size: 1.25rem;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 0.4rem;
+      text-align: center;
+    }
+
+    .feedback {
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+      display: block;
+    }
+
+    .feedback.incorrect {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+      display: block;
+    }
+
+    .feedback .explanation {
+      font-weight: 400;
+      font-size: 0.95rem;
+      margin-top: 0.4rem;
+      opacity: 0.95;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .actions .btn {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    /* Results */
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary) calc(var(--pct) * 1%), #e2e8f0 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      position: relative;
+    }
+
+    .score-circle::before {
+      content: '';
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .score-value {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .score-value .num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1;
+    }
+
+    .score-value .label {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    .result-summary {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-summary h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .result-details {
+      background: #f8fafc;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    .result-details p {
+      margin-bottom: 0.35rem;
+    }
+
+    .errors-list {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-top: 1rem;
+    }
+
+    .error-item {
+      background: #fff;
+      border: 1px solid #fecaca;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .error-item strong {
+      color: #b91c1c;
+    }
+
+    .report-box {
+      background: #f0fdfa;
+      border: 2px dashed #99f6e4;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      font-family: ui-monospace, monospace;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      max-height: 220px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    /* Utility */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+
+    @media (max-width: 560px) {
+      .mode-options {
+        grid-template-columns: 1fr;
+      }
+      header h1 {
+        font-size: 1.4rem;
+      }
+      .card {
+        padding: 1.25rem;
+      }
+    }
+
+    /* Print styles for report */
+    @media print {
+      body * { visibility: hidden; }
+      #print-report, #print-report * { visibility: visible; }
+      #print-report {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🧮 Càlcul Mental</h1>
+      <p class="subtitle">Situacions contextualitzades · 6è de Primària</p>
+      <span class="badge">Basat en els problemes del dossier</span>
+    </header>
+
+    <!-- START SCREEN -->
+    <section id="start-screen" class="card">
+      <div class="form-group">
+        <label for="student-name">Nom de l'alumne/a</label>
+        <input type="text" id="student-name" placeholder="Ex: Maria García" autocomplete="name">
+      </div>
+
+      <label>Mode de treball</label>
+      <div class="mode-options">
+        <div class="mode-btn active" data-mode="practica" id="mode-practica">
+          <strong>📘 Pràctica</strong>
+          <span>Feedback immediat després de cada resposta</span>
+        </div>
+        <div class="mode-btn" data-mode="avaluacio" id="mode-avaluacio">
+          <strong>📝 Avaluació</strong>
+          <span>Sense pistes. Nota final per avaluar</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="num-questions">Nombre de preguntes</label>
+        <select id="num-questions">
+          <option value="8">8 preguntes (ràpid)</option>
+          <option value="12" selected>12 preguntes</option>
+          <option value="16">16 preguntes</option>
+          <option value="24">Totes (24)</option>
+          <option value="random10">10 aleatòries</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" id="btn-start">Començar →</button>
+      <p class="hint mt-2">Els problemes provenen del dossier «Situacions contextualitzades». Calcula mentalment i escriu només el nombre (sense unitats).</p>
+    </section>
+
+    <!-- QUIZ SCREEN -->
+    <section id="quiz-screen" class="card hidden">
+      <div class="progress-text">
+        <span id="progress-label">Pregunta 1 de 12</span>
+        <span id="score-live">Encerts: 0</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+
+      <div class="question-number" id="q-number">Problema 1</div>
+      <div class="question-text" id="q-text"></div>
+
+      <div class="answer-area">
+        <input type="text" id="answer-input" placeholder="Escriu la resposta aquí..." inputmode="decimal" autocomplete="off">
+        <p class="hint" id="answer-hint">Escriu només el nombre. Pots usar punt o coma decimal.</p>
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="btn-check">Comprovar</button>
+        <button class="btn btn-success hidden" id="btn-next">Següent →</button>
+      </div>
+    </section>
+
+    <!-- RESULTS SCREEN -->
+    <section id="results-screen" class="card hidden">
+      <div class="result-summary">
+        <div class="score-circle" id="score-circle" style="--pct: 0">
+          <div class="score-value">
+            <div class="num" id="score-pct">0%</div>
+            <div class="label">encerts</div>
+          </div>
+        </div>
+        <h2 id="result-title">Resultat</h2>
+        <p id="result-message"></p>
+      </div>
+
+      <div class="result-details" id="result-details"></div>
+
+      <div id="errors-section" class="hidden">
+        <h3 style="font-size:1.05rem; margin-bottom:0.5rem;">Preguntes incorrectes</h3>
+        <div class="errors-list" id="errors-list"></div>
+      </div>
+
+      <div class="mt-2">
+        <h3 style="font-size:1.05rem; margin-bottom:0.5rem;">Comentari qualitatiu</h3>
+        <div id="qualitative-comment" style="background:#f0fdfa; border:1px solid #99f6e4; border-radius:0.75rem; padding:1rem; margin-bottom:1rem; font-size:0.95rem; line-height:1.5;"></div>
+
+        <h3 style="font-size:1.05rem; margin-bottom:0.5rem;">Informe per a l'avaluació</h3>
+        <div class="report-box" id="report-box"></div>
+
+        <!-- ENVIAMENT AL MESTRE (tot automàtic) -->
+        <div style="background:#f0fdfa; border:2px solid #99f6e4; border-radius:1rem; padding:1.1rem; margin-top:1.25rem;">
+          <h3 style="font-size:1.05rem; margin-bottom:0.6rem; color:var(--primary-dark);">📤 Enviar nota al mestre</h3>
+          <p style="font-size:0.9rem; color:#475569; margin-bottom:0.75rem;">
+            Prem el botó i la teva nota arribarà automàticament al full de càlcul del mestre.
+          </p>
+
+          <div id="send-status" style="display:none; padding:0.6rem 0.9rem; border-radius:0.5rem; margin-bottom:0.75rem; font-size:0.9rem;"></div>
+
+          <div class="actions" style="flex-direction: column; gap: 0.55rem;">
+            <button class="btn btn-primary" id="btn-send-sheets" style="width:100%;">📊 Enviar nota al mestre</button>
+            <button class="btn btn-secondary" id="btn-email" style="width:100%;">📧 Enviar per correu electrònic</button>
+            <div style="display:flex; gap:0.55rem; width:100%;">
+              <button class="btn btn-secondary" id="btn-copy" style="flex:1;">📋 Copiar</button>
+              <button class="btn btn-outline" id="btn-print" style="flex:1;">🖨️ Imprimir</button>
+            </div>
+            <button class="btn btn-secondary" id="btn-restart" style="width:100%;">Tornem-hi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Situacions contextualitzades · 6è PRIMÀRIA · Càlcul mental
+    </footer>
+  </div>
+
+  <!-- Hidden printable report -->
+  <div id="print-report" class="hidden"></div>
+
+  <script>
+    // ========== DADES DELS PROBLEMES ==========
+    const PROBLEMES = [
+      {
+        id: 1,
+        text: "Els alumnes de 6è volen anar de viatge a un parc d'atraccions. El preu total del viatge és de 7 250 €. Fins ara han reunit 2 785 € venent pastissos i 1 980 € venent llimonades. Quants diners necessiten encara per poder anar de viatge?",
+        answer: [2485],
+        unit: "€",
+        explanation: "2 785 + 1 980 = 4 765 € recollits. 7 250 − 4 765 = 2 485 € que falten.",
+        multi: false
+      },
+      {
+        id: 2,
+        text: "A la nevera del Marc hi havia 3,75 litres de llet. Després de fer batuts pels seus amics, queden 2,5 litres. Quants litres de llet ha utilitzat en Marc per fer els batuts?",
+        answer: [1.25],
+        unit: "litres",
+        explanation: "3,75 − 2,5 = 1,25 litres utilitzats.",
+        multi: false
+      },
+      {
+        id: 3,
+        text: "En Biel transfereix 689,90 € a la Sofia. La Sofia diu: «Ara tinc 2 100 €.» Quants diners tenia la Sofia abans que en Biel li fes la transferència?",
+        answer: [1410.1],
+        unit: "€",
+        explanation: "2 100 − 689,90 = 1 410,10 € tenia abans.",
+        multi: false
+      },
+      {
+        id: 4,
+        text: "En Sergi té un compte al banc, i durant 3 mesos consecutius treu 750 € al mes. Ara li queden 173 € al compte. Quants diners tenia fa 3 mesos?",
+        answer: [2423],
+        unit: "€",
+        explanation: "750 × 3 = 2 250 € trets. 173 + 2 250 = 2 423 € tenia fa 3 mesos.",
+        multi: false
+      },
+      {
+        id: 5,
+        text: "El garatge d'en Fernando fa 3,50 m de llarg per 6 m d'ample, i el de la Júlia fa 4 m de llarg per 5 m d'ample. Quina és la superfície de cada garatge? Quina diferència de superfície hi ha entre els dos garatges?\n\nEscriu les tres quantitats separades per comes: superfície Fernando, superfície Júlia, diferència (en m²).",
+        answer: [21, 20, 1],
+        unit: "m²",
+        explanation: "Fernando: 3,5 × 6 = 21 m². Júlia: 4 × 5 = 20 m². Diferència: 21 − 20 = 1 m².",
+        multi: true
+      },
+      {
+        id: 6,
+        text: "A una escola hi ha 200 persones. El 45 % són nenes, el 40 % són nens i la resta són professors. Quin percentatge de l'escola són professors? Quants professors hi ha en total?\n\nEscriu el percentatge i el nombre de professors separats per coma (ex: 15, 30).",
+        answer: [15, 30],
+        unit: "% i persones",
+        explanation: "45 % + 40 % = 85 %. Professors = 15 %. 15 % de 200 = 30 professors.",
+        multi: true
+      },
+      {
+        id: 7,
+        text: "El 20 de juliol del 2020 en Pau tenia 27 anys. Fa anys el 14 de novembre. Quin any va néixer?",
+        answer: [1992],
+        unit: "",
+        explanation: "El juliol de 2020 ja havia fet 27 anys (l'últim aniversari va ser el 14 de novembre de 2019). Per tant, va néixer el 1992.",
+        multi: false
+      },
+      {
+        id: 8,
+        text: "En David ha de preparar les cadires per a la festa de fi de curs. Vol posar 15 files de 12 cadires cadascuna. Quantes cadires podrà posar en David en total a l'auditori?",
+        answer: [180],
+        unit: "cadires",
+        explanation: "15 files × 12 cadires = 180 cadires.",
+        multi: false
+      },
+      {
+        id: 9,
+        text: "La Clàudia condueix a una velocitat de 90 km/h, i augmenta 1/3 la velocitat per fer un avançament. A quina velocitat fa l'avançament?",
+        answer: [120],
+        unit: "km/h",
+        explanation: "1/3 de 90 = 30. 90 + 30 = 120 km/h.",
+        multi: false
+      },
+      {
+        id: 10,
+        text: "El primer llibre de la saga que està llegint en Pere té 525 pàgines, el triple que el segon llibre. Quantes pàgines haurà llegit en total en acabar el segon llibre?",
+        answer: [700],
+        unit: "pàgines",
+        explanation: "Segon llibre = 525 ÷ 3 = 175 pàgines. Total = 525 + 175 = 700 pàgines.",
+        multi: false
+      },
+      {
+        id: 11,
+        text: "En Nil ha obtingut una nota de 9,5 a l'examen final. Està orgullós perquè diu que és 1,25 punts més alta que la qualificació que va obtenir a l'examen anterior. Quina qualificació va obtenir a l'examen anterior?",
+        answer: [8.25],
+        unit: "punts",
+        explanation: "9,5 − 1,25 = 8,25.",
+        multi: false
+      },
+      {
+        id: 12,
+        text: "En Tom està fent una cursa de 10 milles, i veu un senyal que diu que és a la milla 7 1/4. Quantes milles li falten per arribar a la meta?",
+        answer: [2.75],
+        unit: "milles",
+        explanation: "7 1/4 = 7,25. 10 − 7,25 = 2,75 milles.",
+        multi: false
+      },
+      {
+        id: 13,
+        text: "En Joan té un hort rectangular que en total té 258 m². Un dels costats fa 10 m. Quant mesura l'altre costat?",
+        answer: [25.8],
+        unit: "m",
+        explanation: "258 ÷ 10 = 25,8 m.",
+        multi: false
+      },
+      {
+        id: 14,
+        text: "Després de revisar el seu armari, la Marta ha descobert que té 27 maneres diferents de vestir-se si combina els pantalons i les samarretes. Si té 9 samarretes, quants pantalons diferents hi ha al seu armari?",
+        answer: [3],
+        unit: "pantalons",
+        explanation: "27 ÷ 9 = 3 pantalons.",
+        multi: false
+      },
+      {
+        id: 15,
+        text: "L'Anna té un pot amb farina. En fa servir 150 g per fer un pastís, 125 g per fer magdalenes, i després li queden 0,5 kg de farina. Quanta farina tenia abans de preparar el pastís i les magdalenes?\n\nEscriu la resposta en kg (ex: 0,775).",
+        answer: [0.775],
+        unit: "kg",
+        explanation: "150 g + 125 g = 275 g = 0,275 kg. 0,5 + 0,275 = 0,775 kg.",
+        multi: false
+      },
+      {
+        id: 16,
+        text: "Revisant el seu armari, la Laura comprova que té 1 samarreta vermella, 1 verda i 1 blava, 2 pantalons de colors diferents i 3 mocadors de colors diferents. Si la Laura vol combinar una samarreta amb uns pantalons i un mocador, quantes combinacions diferents pot fer?",
+        answer: [18],
+        unit: "combinacions",
+        explanation: "3 samarretes × 2 pantalons × 3 mocadors = 18 combinacions.",
+        multi: false
+      },
+      {
+        id: 17,
+        text: "La Núria està pintant la seva habitació. Per obtenir el color verd, ha de barrejar 3 parts de blau per cada 2 parts de groc. Si per pintar l'habitació necessita 7,5 litres de pintura verda, quants litres en necessita de cada color?\n\nEscriu litres de blau i litres de groc separats per coma (ex: 4,5, 3).",
+        answer: [4.5, 3],
+        unit: "litres",
+        explanation: "Parts totals = 3 + 2 = 5. Blau = (3/5) × 7,5 = 4,5 L. Groc = (2/5) × 7,5 = 3 L.",
+        multi: true
+      },
+      {
+        id: 18,
+        text: "L'Hugo va cada dia a esmorzar a la cafeteria. El menú sempre inclou un entrepà i una beguda. Hi ha 7 tipus d'entrepans i 8 tipus de begudes. Si vol prendre una combinació diferent cada dia, quantes setmanes trigarà a haver provat tots els menús?",
+        answer: [8],
+        unit: "setmanes",
+        explanation: "7 × 8 = 56 combinacions. 56 ÷ 7 dies = 8 setmanes.",
+        multi: false
+      },
+      {
+        id: 19,
+        text: "La Blanca ha de repartir 5 kg de cafè en 4 paquets iguals. L'Irene li diu que ha de posar 5/4 de kg a cada paquet. Quants grams ha de posar a cada paquet?",
+        answer: [1250],
+        unit: "g",
+        explanation: "5/4 kg = 1,25 kg = 1 250 grams.",
+        multi: false
+      },
+      {
+        id: 20,
+        text: "Un equip de futbol vol comprar noves porteries que costen 2 400 € en total. Primer van rebre una subvenció que representa la vuitena part del total, i l'últim mes han reunit una sisena part del cost total organitzant un torneig. Quants diners més necessiten per poder comprar les noves porteries?",
+        answer: [1700],
+        unit: "€",
+        explanation: "1/8 de 2 400 = 300 €. 1/6 de 2 400 = 400 €. Total aconseguit = 700 €. Falten 2 400 − 700 = 1 700 €.",
+        multi: false
+      },
+      {
+        id: 21,
+        text: "L'Albert va comprar fa 10 anys una planta que feia 12 cm, i avui fa 84 cm. Quantes vegades més alta és ara la planta?",
+        answer: [7],
+        unit: "vegades",
+        explanation: "84 ÷ 12 = 7. La planta és 7 vegades més alta.",
+        multi: false
+      },
+      {
+        id: 22,
+        text: "En Leo prepara llimonada amb aigua i suc de llimona. La proporció que necessita és d'1 part de suc per cada 10 parts d'aigua. Si fa servir 15 cl de suc, quants litres de llimonada sortiran en total?",
+        answer: [1.65],
+        unit: "litres",
+        explanation: "Aigua = 15 × 10 = 150 cl. Total = 15 + 150 = 165 cl = 1,65 litres.",
+        multi: false
+      },
+      {
+        id: 23,
+        text: "La Maria té 10 m de tela i vol confeccionar 8 cortines iguals. La seva amiga Clara li diu que ha de fer servir 10/8 m per a cada cortina, però la cosidora necessita la mesura en centímetres. Quants centímetres ha d'utilitzar la cosidora per fer cada cortina?",
+        answer: [125],
+        unit: "cm",
+        explanation: "10/8 m = 1,25 m = 125 cm.",
+        multi: false
+      },
+      {
+        id: 24,
+        text: "En Jaume i en Lluc estan fent una cursa d'orientació de 8 milles. En Jaume ha recorregut 7 3/4 milles quan en Lluc és a 6 1/2 milles de l'inici. Quina distància hi ha entre ells dos?",
+        answer: [1.25],
+        unit: "milles",
+        explanation: "7 3/4 = 7,75. 6 1/2 = 6,5. 7,75 − 6,5 = 1,25 milles.",
+        multi: false
+      }
+    ];
+
+    // ========== ESTAT DE L'APP ==========
+    let state = {
+      mode: 'practica', // practica | avaluacio
+      studentName: '',
+      questions: [],
+      currentIndex: 0,
+      answers: [], // {correct: bool, userAnswer: string, problemId: number}
+      startTime: null,
+      checked: false
+    };
+
+    // ========== UTILITATS ==========
+    function normalizeNumber(str) {
+      if (!str) return NaN;
+      // Accepta coma o punt, elimina espais i símbols comuns
+      let s = str.trim()
+        .replace(/\s/g, '')
+        .replace(',', '.')
+        .replace(/[€$%]/g, '')
+        .replace(/kg|g|m|cm|l|litres|milles|punts|vegades|setmanes|cadires|pantalons|combinacions/gi, '');
+      return parseFloat(s);
+    }
+
+    function parseUserAnswer(input, isMulti) {
+      if (!input || !input.trim()) return null;
+      if (isMulti) {
+        // Separa per comes o espais
+        const parts = input.split(/[,;]+/).map(p => normalizeNumber(p.trim())).filter(n => !isNaN(n));
+        return parts.length ? parts : null;
+      }
+      const n = normalizeNumber(input);
+      return isNaN(n) ? null : [n];
+    }
+
+    function answersMatch(userNums, correctNums, tolerance = 0.015) {
+      if (!userNums || userNums.length !== correctNums.length) return false;
+      return userNums.every((u, i) => Math.abs(u - correctNums[i]) <= tolerance);
+    }
+
+    function formatAnswer(nums, unit) {
+      const str = nums.map(n => {
+        // Mostra amb coma si té decimals
+        if (Number.isInteger(n)) return n.toString();
+        return n.toString().replace('.', ',');
+      }).join(', ');
+      return unit ? `${str} ${unit}` : str;
+    }
+
+    function shuffle(array) {
+      const a = [...array];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // ========== UI HELPERS ==========
+    const $ = id => document.getElementById(id);
+
+    function showScreen(id) {
+      ['start-screen', 'quiz-screen', 'results-screen'].forEach(s => {
+        $(s).classList.toggle('hidden', s !== id);
+      });
+    }
+
+    // ========== EVENTS ==========
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.mode = btn.dataset.mode;
+      });
+    });
+
+    $('btn-start').addEventListener('click', startQuiz);
+    $('btn-check').addEventListener('click', checkAnswer);
+    $('btn-next').addEventListener('click', nextQuestion);
+    $('btn-restart').addEventListener('click', () => {
+      showScreen('start-screen');
+      $('answer-input').value = '';
+    });
+    $('btn-copy').addEventListener('click', copyReport);
+    $('btn-print').addEventListener('click', printReport);
+    $('btn-email').addEventListener('click', emailReport);
+    $('btn-send-sheets').addEventListener('click', sendToGoogleSheets);
+
+    // URL del script del mestre (oculta, tot automàtic)
+    const MASTER_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzc-Yq91-jkXWPOc347xZieALcBmV4JgcQ8LDOXhG7j_iw3-FCiy8Wvgp2z8N3TZ4L2/exec";
+
+    // Enter key
+    $('answer-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        if (!state.checked) checkAnswer();
+        else nextQuestion();
+      }
+    });
+
+    // ========== LÒGICA PRINCIPAL ==========
+    function startQuiz() {
+      const name = $('student-name').value.trim();
+      if (!name) {
+        alert('Si us plau, escriu el nom de l\'alumne/a.');
+        $('student-name').focus();
+        return;
+      }
+
+      state.studentName = name;
+      state.currentIndex = 0;
+      state.answers = [];
+      state.checked = false;
+      state.startTime = new Date();
+
+      const numOpt = $('num-questions').value;
+      let selected = [...PROBLEMES];
+
+      if (numOpt === 'random10') {
+        selected = shuffle(selected).slice(0, 10);
+      } else {
+        const n = parseInt(numOpt, 10);
+        selected = shuffle(selected).slice(0, n);
+      }
+
+      state.questions = selected;
+      showScreen('quiz-screen');
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = state.questions[state.currentIndex];
+      const total = state.questions.length;
+      const idx = state.currentIndex + 1;
+
+      $('progress-label').textContent = `Pregunta ${idx} de ${total}`;
+      // En mode avaluació no mostrem els encerts en viu perquè no influenciï l'alumne
+      if (state.mode === 'practica') {
+        $('score-live').textContent = `Encerts: ${state.answers.filter(a => a.correct).length}`;
+        $('score-live').style.visibility = 'visible';
+      } else {
+        $('score-live').textContent = '';
+        $('score-live').style.visibility = 'hidden';
+      }
+      $('progress-fill').style.width = `${((idx - 1) / total) * 100}%`;
+
+      $('q-number').textContent = `Problema ${q.id}`;
+      $('q-text').textContent = q.text;
+
+      $('answer-input').value = '';
+      $('answer-input').disabled = false;
+      $('answer-hint').textContent = q.multi
+        ? 'Escriu els nombres separats per comes (ex: 4,5, 3). Accepta punt o coma decimal.'
+        : 'Escriu només el nombre. Pots usar punt o coma decimal (ex: 1,25 o 1.25).';
+
+      $('feedback').className = 'feedback';
+      $('feedback').style.display = 'none';
+      $('btn-check').classList.remove('hidden');
+      $('btn-next').classList.add('hidden');
+      state.checked = false;
+
+      $('answer-input').focus();
+    }
+
+    function checkAnswer() {
+      const q = state.questions[state.currentIndex];
+      const raw = $('answer-input').value;
+      const userNums = parseUserAnswer(raw, q.multi);
+
+      const correct = answersMatch(userNums, q.answer);
+      state.answers.push({
+        correct,
+        userAnswer: raw.trim() || '(buit)',
+        problemId: q.id,
+        expected: q.answer
+      });
+
+      state.checked = true;
+      $('answer-input').disabled = true;
+      $('btn-check').classList.add('hidden');
+      $('btn-next').classList.remove('hidden');
+
+      const fb = $('feedback');
+      if (state.mode === 'practica') {
+        if (correct) {
+          fb.className = 'feedback correct';
+          fb.innerHTML = `✅ Correcte! Ben fet.<div class="explanation">${q.explanation}</div>`;
+        } else {
+          fb.className = 'feedback incorrect';
+          fb.innerHTML = `❌ Incorrecte. La resposta correcta és <strong>${formatAnswer(q.answer, q.unit)}</strong>.
+            <div class="explanation">${q.explanation}</div>`;
+        }
+      } else {
+        // Mode avaluació: només confirma que s'ha registrat (sense revelar si és correcta)
+        fb.className = 'feedback correct';
+        fb.innerHTML = `Resposta registrada. Continua amb la següent.`;
+      }
+      fb.style.display = 'block';
+
+      // Actualitza progress visual
+      const total = state.questions.length;
+      $('progress-fill').style.width = `${(state.currentIndex + 1) / total * 100}%`;
+      if (state.mode === 'practica') {
+        $('score-live').textContent = `Encerts: ${state.answers.filter(a => a.correct).length}`;
+      }
+    }
+
+    function nextQuestion() {
+      if (state.currentIndex < state.questions.length - 1) {
+        state.currentIndex++;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      const total = state.questions.length;
+      const correctCount = state.answers.filter(a => a.correct).length;
+      const pct = Math.round((correctCount / total) * 100);
+      const endTime = new Date();
+      const minutes = Math.round((endTime - state.startTime) / 60000 * 10) / 10;
+
+      // Score circle
+      $('score-circle').style.setProperty('--pct', pct);
+      $('score-pct').textContent = pct + '%';
+
+      // Title & message
+      let title, msg;
+      if (pct >= 90) {
+        title = 'Excel·lent! 🌟';
+        msg = 'Has demostrat un domini molt alt del càlcul mental.';
+      } else if (pct >= 70) {
+        title = 'Molt bé! 👍';
+        msg = 'Bon treball. Continua practicant els punts més febles.';
+      } else if (pct >= 50) {
+        title = 'Anem progressant 💪';
+        msg = 'Has encertat la meitat o més. Repassa les explicacions i torna-ho a provar.';
+      } else {
+        title = 'Cal practicar més 📚';
+        msg = 'No et desanimis. Llegeix les solucions i torna a intentar-ho.';
+      }
+      $('result-title').textContent = title;
+      $('result-message').textContent = msg;
+
+      // Details
+      const modeLabel = state.mode === 'practica' ? 'Pràctica (amb feedback)' : 'Avaluació formal';
+      $('result-details').innerHTML = `
+        <p><strong>Alumne/a:</strong> ${state.studentName}</p>
+        <p><strong>Mode:</strong> ${modeLabel}</p>
+        <p><strong>Preguntes:</strong> ${correctCount} / ${total} correctes</p>
+        <p><strong>Percentatge / Nota:</strong> <span style="font-size:1.15rem; font-weight:700; color:var(--primary-dark)">${pct}%</span></p>
+        <p><strong>Temps aproximat:</strong> ${minutes} minuts</p>
+        <p><strong>Data:</strong> ${endTime.toLocaleDateString('ca-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+      `;
+
+      // Comentari qualitatiu segons errors
+      const comment = generateQualitativeComment(state.answers, pct);
+      state.lastComment = comment;
+      $('qualitative-comment').innerHTML = comment;
+
+      // Errors (també al final perquè l'alumne pugui aprendre)
+      const errors = state.answers.filter(a => !a.correct);
+      if (errors.length > 0) {
+        $('errors-section').classList.remove('hidden');
+        $('errors-list').innerHTML = errors.map(e => {
+          const p = PROBLEMES.find(pr => pr.id === e.problemId);
+          return `<div class="error-item">
+            <strong>Problema ${e.problemId}</strong><br>
+            La teva resposta: ${e.userAnswer}<br>
+            Correcta: ${formatAnswer(p.answer, p.unit)}
+          </div>`;
+        }).join('');
+      } else {
+        $('errors-section').classList.add('hidden');
+      }
+
+      // Report text
+      const report = generateReport(correctCount, total, pct, minutes, endTime, comment);
+      $('report-box').textContent = report;
+
+      showScreen('results-screen');
+    }
+
+    // Genera comentari qualitatiu segons els errors comesos
+    function generateQualitativeComment(answers, pct) {
+      const wrongIds = answers.filter(a => !a.correct).map(a => a.problemId);
+      if (wrongIds.length === 0) {
+        return '🌟 <strong>Excel·lent!</strong> Has resolt tots els problemes correctament. Domines el càlcul mental d’aquestes situacions contextualitzades.';
+      }
+
+      // Temes per grups de problemes
+      const themes = {
+        diners: { ids: [1, 3, 4, 20], label: 'operacions amb diners (sumes, restes i parts)' },
+        mesures: { ids: [2, 15, 19, 22, 23], label: 'mesures i conversions d’unitats (litres, grams, metres, centímetres)' },
+        geometria: { ids: [5, 13], label: 'càlcul de superfícies i dimensions' },
+        percentatges: { ids: [6], label: 'percentatges' },
+        fraccions: { ids: [9, 10, 11, 12, 24], label: 'fraccions, decimals i operacions amb parts' },
+        combinatoria: { ids: [14, 16, 18], label: 'combinatòria (maneres de combinar elements)' },
+        proporcions: { ids: [17, 21], label: 'proporcions i raons' },
+        altres: { ids: [7, 8], label: 'càlculs bàsics (edat, multiplicacions)' }
+      };
+
+      const weak = [];
+      for (const key in themes) {
+        const hits = themes[key].ids.filter(id => wrongIds.includes(id));
+        if (hits.length > 0) {
+          weak.push({ label: themes[key].label, count: hits.length });
+        }
+      }
+      weak.sort((a, b) => b.count - a.count);
+
+      let text = '';
+      if (pct >= 80) {
+        text = '👍 <strong>Molt bon resultat.</strong> Només has fallat alguns detalls. ';
+      } else if (pct >= 60) {
+        text = '💪 <strong>Bon esforç.</strong> Encara hi ha aspectes a reforçar. ';
+      } else if (pct >= 40) {
+        text = '📚 <strong>Cal practicar més.</strong> ';
+      } else {
+        text = '🔄 <strong>Has de repassar amb calma.</strong> ';
+      }
+
+      if (weak.length > 0) {
+        const top = weak.slice(0, 3).map(w => w.label);
+        if (top.length === 1) {
+          text += `El punt més feble ha estat: <em>${top[0]}</em>.`;
+        } else {
+          text += `Els punts més febles han estat: <em>${top.join('; ')}</em>.`;
+        }
+        text += ' Et recomano tornar a practicar aquests tipus de problemes.';
+      }
+
+      return text;
+    }
+
+    function generateReport(correct, total, pct, minutes, date, comment) {
+      const modeLabel = state.mode === 'practica' ? 'Pràctica (amb feedback)' : 'Avaluació formal';
+      // Treu HTML del comentari per a l'informe de text
+      const commentText = (comment || '').replace(/<[^>]+>/g, '');
+      let lines = [
+        '═══════════════════════════════════════',
+        '  INFORME DE CÀLCUL MENTAL · 6è PRIMÀRIA',
+        '═══════════════════════════════════════',
+        '',
+        `Alumne/a:          ${state.studentName}`,
+        `Data:              ${date.toLocaleDateString('ca-ES')} ${date.toLocaleTimeString('ca-ES', {hour:'2-digit', minute:'2-digit'})}`,
+        `Mode:              ${modeLabel}`,
+        `Preguntes:         ${correct} correctes de ${total}`,
+        `NOTA (percentatge): ${pct}%`,
+        `Temps aproximat:   ${minutes} min`,
+        '',
+        '--- Comentari qualitatiu ---',
+        commentText,
+        '',
+        '--- Detall per problema ---'
+      ];
+
+      state.answers.forEach((a, i) => {
+        const p = state.questions[i];
+        const status = a.correct ? '✓' : '✗';
+        lines.push(`${status} Problema ${p.id}: ${a.correct ? 'Correcte' : 'Incorrecte (resp: ' + a.userAnswer + ')'}`);
+      });
+
+      lines.push('');
+      lines.push('Observacions del mestre/a: _______________________________');
+      lines.push('_______________________________________________________');
+      lines.push('');
+      lines.push('App: Càlcul Mental · Situacions contextualitzades');
+
+      return lines.join('\n');
+    }
+
+    function copyReport() {
+      const text = $('report-box').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = $('btn-copy');
+        const old = btn.textContent;
+        btn.textContent = '✅ Copiat!';
+        setTimeout(() => btn.textContent = old, 2000);
+      }).catch(() => {
+        alert('No s\'ha pogut copiar. Selecciona el text manualment.');
+      });
+    }
+
+    function emailReport() {
+      const text = $('report-box').textContent;
+      const subject = encodeURIComponent(`Nota càlcul mental 6è – ${state.studentName}`);
+      const body = encodeURIComponent(text);
+      // Obre el client de correu de l'alumne amb l'informe ja escrit
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+
+    function printReport() {
+      const report = $('report-box').textContent;
+      const printDiv = $('print-report');
+      printDiv.innerHTML = `<pre style="font-family: monospace; white-space: pre-wrap; font-size: 12pt;">${report.replace(/</g,'&lt;')}</pre>`;
+      printDiv.classList.remove('hidden');
+      window.print();
+      printDiv.classList.add('hidden');
+    }
+
+    async function sendToGoogleSheets() {
+      const url = MASTER_SHEETS_URL;
+      const statusEl = $('send-status');
+      const btn = $('btn-send-sheets');
+
+      const total = state.questions.length;
+      const correctCount = state.answers.filter(a => a.correct).length;
+      const pct = Math.round((correctCount / total) * 100);
+      const endTime = new Date();
+      const minutes = Math.round((endTime - state.startTime) / 60000 * 10) / 10;
+      const commentText = (state.lastComment || '').replace(/<[^>]+>/g, '');
+
+      const payload = {
+        nom: state.studentName,
+        data: endTime.toISOString(),
+        dataLocal: endTime.toLocaleString('ca-ES'),
+        mode: state.mode === 'practica' ? 'Pràctica' : 'Avaluació',
+        totalPreguntes: total,
+        encerts: correctCount,
+        percentatge: pct,
+        tempsMinuts: minutes,
+        comentari: commentText,
+        informeComplet: $('report-box').textContent,
+        detall: state.answers.map((a, i) => ({
+          problema: state.questions[i].id,
+          correcte: a.correct,
+          respostaAlumne: a.userAnswer
+        }))
+      };
+
+      btn.disabled = true;
+      btn.textContent = 'Enviant...';
+      statusEl.style.display = 'block';
+      statusEl.style.background = '#e0f2fe';
+      statusEl.style.color = '#075985';
+      statusEl.textContent = 'Enviant la nota al full de Google...';
+
+      try {
+        // mode: 'no-cors' evita el bloqueig CORS del navegador amb Google Apps Script.
+        // No podem llegir la resposta, però la petició sí que arriba al script.
+        await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify(payload)
+        });
+
+        statusEl.style.background = '#dcfce7';
+        statusEl.style.color = '#166534';
+        statusEl.innerHTML = '✅ Nota enviada. Comprova el full de Google (fulla «Respostes»). Si no hi apareix en 15–20 segons, digues-m’ho.';
+        btn.textContent = '✅ Enviat';
+        btn.disabled = false;
+      } catch (err) {
+        console.error('Error enviant a Google Sheets:', err);
+        statusEl.style.background = '#fee2e2';
+        statusEl.style.color = '#991b1b';
+        statusEl.innerHTML = '❌ No s’ha pogut enviar. Utilitza «Enviar per correu» o «Copiar».<br><small>' + (err.message || '') + '</small>';
+        btn.disabled = false;
+        btn.textContent = '📊 Enviar nota al full de Google del mestre';
+      }
+    }
+  </script>
+</body>
+</html>
